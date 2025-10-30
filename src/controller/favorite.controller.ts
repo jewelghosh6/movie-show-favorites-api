@@ -4,6 +4,7 @@ import {
   listFavorites,
   updateFavorite,
   deleteFavorite,
+  getFavoritesListBySearchKey,
 } from "../service/favorite.service";
 
 export async function createFavoriteController(req: Request, res: Response,next:NextFunction) {
@@ -44,5 +45,18 @@ export async function deleteFavoriteController(req: Request, res: Response,next:
     return res.json(result);
   } catch (error: any) {
     next(error)
+  }
+}
+
+
+export async function listFavoritesBySearchKeyController(req: Request, res: Response,next:NextFunction) {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const search_key = req.query.search_key as string;
+    const result = await getFavoritesListBySearchKey(page, limit,search_key);
+    return res.json(result);
+  } catch (error) {
+     next(error)
   }
 }

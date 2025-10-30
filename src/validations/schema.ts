@@ -31,3 +31,25 @@ export const paginationSchema = z.object({
       message: "Limit must be a positive integer",
     }),
 });
+
+const atLeastOneFieldRequired = (obj: any) => {
+  const keys = Object.keys(obj);
+  return keys.some(key => obj[key] !== undefined);
+};
+
+export const favoriteUpdateSchema = z.object({
+  title: z.string().min(1, "Title is required").optional(),
+  type: z.enum(["Movie", "TV Show"], {
+    errorMap: () => ({ message: "Type must be either 'Movie' or 'TV Show'" }),
+  }).optional(),
+  director: z.string().min(1, "Director is required").optional(),
+  budget: z.number().positive("Budget must be a positive number").optional(),
+  location: z.string().min(1, "Location is required").optional(),
+  duration: z.string().min(1, "Duration is required").optional(),
+  year_or_time: z.string().min(1, "Year/Time is required").optional(),
+}).refine((data) => atLeastOneFieldRequired(data), {
+  message: "At least one field must be provided for the update",
+  path: [], 
+});
+
+export type FavoriteUpdateInput = z.infer<typeof favoriteUpdateSchema>;

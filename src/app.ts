@@ -18,10 +18,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send("MovieShowFavorites API is running!");
 });
 
-app.use(errorHandler);
-
 (async () => {
-  await initDB(); // ✅ Initialize all models + DB connection
+  await initDB();
 })();
 
 app.listen(3000, () => {
@@ -33,3 +31,5 @@ app.use((req, res, next) => {
     new ApiError(404, `Route ${req.method}:'${req.originalUrl}' not exists!`)
   );
 });
+
+app.use(errorHandler);

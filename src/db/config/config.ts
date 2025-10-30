@@ -16,6 +16,8 @@ interface DBConfig {
   };
 }
 
+console.log(process.env.DB_USERNAME)
+
 const config: DBConfig = {
   development: {
     username: process.env.DB_USERNAME!,
