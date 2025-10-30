@@ -23,7 +23,7 @@ Make sure the following are installed on your system:
 
 Install all dependencies:
 
-npm install
+```npm install```
 
 
 ---
@@ -36,13 +36,13 @@ Add `.env` file sample `.env.example` is provided
 
 Compile TypeScript and apply all database migrations:
 
-npm run migrate-db
+```npm run migrate-db```
 
 ### Undo Migrations
 
 Revert all applied migrations:
 
-npm run migrate-db-undo
+```npm run migrate-db-undo```
 
 
 
@@ -53,14 +53,14 @@ npm run migrate-db-undo
 Populate the database with initial data:
 
 
-npm run seed-db
+```npm run seed-db```
 
 
 ### Undo Seed Data
 
 Remove seeded data:
 
-npm run seed-db-undo
+```npm run seed-db-undo```
 
 
 ## Running the Server
@@ -70,11 +70,11 @@ npm run seed-db-undo
 Start the app with hot reload:
 
 
-npm run dev
+```npm run dev```
 
 
 ### Production Mode
 
 Run the compiled version:
 
-npm start
+```npm start```
