@@ -11,7 +11,7 @@ This explains how to install dependencies, run migrations, seed data, and start 
 
 Make sure the following are installed on your system:
 
-- Node.js (v18 or higher)
+- Node.js (v22 or higher)
 - npm or yarn
 - TypeScript
 - Sequelize CLI

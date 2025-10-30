@@ -17,17 +17,26 @@ export type FavoriteInput = z.infer<typeof favoriteSchema>;
 // Pagination query schema
 export const paginationSchema = z.object({
   page: z
-    .string()
+    .union([z.string(), z.number()])
     .optional()
-    .transform((val) => (val ? parseInt(val, 10) : 1))
-    .refine((val) => !isNaN(val) && val > 0, {
+    .transform((val) => {
+      if (val === undefined) return 1;
+      const num = typeof val === "string" ? parseInt(val, 10) : val;
+      return isNaN(num) || num <= 0 ? 1 : num;
+    })
+    .refine((val) => val > 0, {
       message: "Page must be a positive integer",
     }),
+
   limit: z
-    .string()
+    .union([z.string(), z.number()])
     .optional()
-    .transform((val) => (val ? parseInt(val, 10) : 10))
-    .refine((val) => !isNaN(val) && val > 0, {
+    .transform((val) => {
+      if (val === undefined) return 10;
+      const num = typeof val === "string" ? parseInt(val, 10) : val;
+      return isNaN(num) || num <= 0 ? 10 : num;
+    })
+    .refine((val) => val > 0, {
       message: "Limit must be a positive integer",
     }),
 });

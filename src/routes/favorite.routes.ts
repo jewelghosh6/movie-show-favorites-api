@@ -1,11 +1,17 @@
 import { Router } from 'express';
-import { createFavoriteController, deleteFavoriteController, listFavoritesController,  } from '../controller/favorite.controller';
+import { createFavoriteController, deleteFavoriteController, listFavoritesBySearchKeyController, listFavoritesController, updateFavoriteController,  } from '../controller/favorite.controller';
 
 const router = Router();
 
 router.post('/', createFavoriteController);
+
 router.get('/', listFavoritesController);
-router.put('/:id', listFavoritesController);
+
+router.patch('/:id', updateFavoriteController);
+
 router.delete('/:id', deleteFavoriteController);
+
+router.get('/search', listFavoritesBySearchKeyController);
+
 
 export default router;

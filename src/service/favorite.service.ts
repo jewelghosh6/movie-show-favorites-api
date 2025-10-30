@@ -53,7 +53,7 @@ export async function updateFavorite(id: string, updateData: FavoriteUpdateInput
     }
   
     const favorite = await Favorite.findByPk(id);
-    if (!favorite) throw new Error("Entry not found");
+    if (!favorite) throw new ApiError(400,"Entry not found");
   
     await favorite.update(data);
     return favorite;
@@ -69,7 +69,7 @@ export async function deleteFavorite(id: string) {
       throw new ApiError(400, 'Invalid Entry ID format');
     }
     const favorite = await Favorite.findByPk(id);
-    if (!favorite) throw new Error("Entry not found");
+    if (!favorite) throw new ApiError(400,"Entry not found");
   
     await favorite.destroy();
     return { message: "Entry deleted successfully" };

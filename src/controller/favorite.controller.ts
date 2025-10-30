@@ -53,7 +53,7 @@ export async function listFavoritesBySearchKeyController(req: Request, res: Resp
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
-    const search_key = req.query.search_key as string;
+    const search_key = req.query.keyword as string;
     const result = await getFavoritesListBySearchKey(page, limit,search_key);
     return res.json(result);
   } catch (error) {
