@@ -1,17 +1,35 @@
-import express, { type Request, type Response } from "express";
+import express, { Application, Request, Response } from 'express';
+import { initDB } from './db/dbInstance';
+import { ApiError } from './utils/ApiError';
+import { errorHandler } from './middleware/errorHandler';
+import dotenv from 'dotenv';
+import favoriteRoutes from './routes/favorite.routes';
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+dotenv.config();
 
-// Middleware
+const app: Application = express();
+
 app.use(express.json());
 
-// Routes
+app.use('/api/entries', favoriteRoutes);
+
+
 app.get("/", (req: Request, res: Response) => {
-  res.send("🎬 MovieShowFavorites API is running!");
+  res.send("MovieShowFavorites API is running!");
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.use(errorHandler);
+
+(async () => {
+  await initDB(); // ✅ Initialize all models + DB connection
+})();
+
+app.listen(3000, () => {
+    console.log(`🚀 Server running on http://localhost:${3000}`);
+});
+
+app.use((req, res, next) => {
+  next(
+    new ApiError(404, `Route ${req.method}:'${req.originalUrl}' not exists!`)
+  );
 });

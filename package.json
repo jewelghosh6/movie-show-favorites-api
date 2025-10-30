@@ -3,21 +3,30 @@
   "version": "1.0.0",
   "description": "Basic crud api for storing favorites movie &amp; TV shows",
   "main": "app.js",
-  "type": "module",
   "scripts": {
-  "dev": "nodemon --watch src --exec \"ts-node src/app.ts\"",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/server.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/app.ts",
+    "migrate-db": "tsc && npx sequelize-cli db:migrate",
+    "migrate-db-undo": "tsc && npx sequelize-cli db:migrate:undo:all",
+    "seed-db": "tsc && npx sequelize-cli db:seed:all",
+    "seed-db-undo": "tsc && npx sequelize-cli db:seed:undo:all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3",
+    "sequelize": "^6.37.7",
+    "sequelize-typescript": "^2.1.6",
+    "uuid": "^13.0.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.5",
     "@types/node": "^24.9.2",
+    "dotenv": "^17.2.3",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
