@@ -1,7 +1,7 @@
 import { ZodError } from "zod";
 import { Favorite } from "../db/models/favorite.model";
 import { FavoriteInput, favoriteSchema, FavoriteUpdateInput, favoriteUpdateSchema, paginationSchema } from "../validations/schema";
-import { validate } from "uuid";
+import { validate as uuidValidate } from "uuid";
 import { ApiError } from "../utils/ApiError";
 import { Op } from "sequelize";
 // import { favoriteSchema, FavoriteInput } from "../schemas/favorite.schema";
@@ -43,7 +43,7 @@ export async function updateFavorite(id: string, updateData: FavoriteUpdateInput
 
   try {
     //first validate its uuid
-    if (!validate(id)) {
+    if (!uuidValidate(id)) {
       throw new ApiError(400, 'Invalid Entry ID format');
     }
 
@@ -65,7 +65,7 @@ export async function updateFavorite(id: string, updateData: FavoriteUpdateInput
 export async function deleteFavorite(id: string) {
   try {
     //first validate its uuid
-    if (!validate(id)) {
+    if (!uuidValidate(id)) {
       throw new ApiError(400, 'Invalid Entry ID format');
     }
     const favorite = await Favorite.findByPk(id);
